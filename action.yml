@@ -31,6 +31,19 @@ inputs:
     description: "Firefox JWT Issuer"
   firefox-jwt-secret:
     description: "Firefox JWT Secret"
+
+  # Inputs for Edge Extension
+  edge:
+    required: false
+    default: false
+  edge-product-id:
+    description: "Edge Product ID"
+  edge-client-id:
+    description: "Edge Client ID"
+  edge-client-secret:
+    descriptoon: "Edge Client Secret"
+  edge-access-token-url:
+    description: "Edge Access Token URL"
 runs:
   using: "composite"
   steps:
@@ -83,6 +96,28 @@ runs:
         echo "All required inputs for Chrome Extension are provided."
       shell: bash
 
+    - name: Check required inputs for Edge Extension
+      if: ${{ inputs.edge == 'true' }}
+      run: |
+        if [[ -z "${{ inputs.edge-product-id }}" ]]; then
+          echo "Error: Edge Product ID is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.edge-client-id }}" ]]; then
+          echo "Error: Edge Client ID is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.edge-client-secret }}" ]]; then
+          echo "Error: Edge Client Secret is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.edge-access-token-url }}" ]]; then
+          echo "Error: Edge Access Token URL is required."
+          exit 1
+        fi
+        echo "All required inputs for Edge Extension are provided."
+      shell: bash
+
     - uses: actions/checkout@v4
 
     - uses: pnpm/action-setup@v3
@@ -124,3 +159,17 @@ runs:
         FIREFOX_EXTENSION_ID: ${{ inputs.firefox-extension-id }}
         FIREFOX_JWT_ISSUER: ${{ inputs.firefox-jwt-issuer }}
         FIREFOX_JWT_SECRET: ${{ inputs.firefox-jwt-secret }}
+
+    - name: Submit to Edge
+      if: ${{ inputs.edge == 'true' }}
+      run: |
+        pnpm zip
+        pnpm wxt submit \
+          ${{ inputs.dry-run == 'true' && '--dry-run' || '' }} \
+          --edge-zip .output/*-chrome.zip
+      shell: bash
+      env:
+        EDGE_PRODUCT_ID: ${{ inputs.edge-product-id }}
+        EDGE_CLIENT_ID: ${{ inputs.edge-client-id }}
+        EDGE_CLIENT_SECRET: ${{ inputs.edge-client-secret }}
+        EDGE_ACCESS_TOKEN_URL: ${{ inputs.edge-access-token-url }}

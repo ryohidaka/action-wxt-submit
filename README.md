@@ -27,6 +27,13 @@ Only **pnpm** is supported.
     firefox-extension-id: ${{ secrets.FIREFOX_EXTENSION_ID }}
     firefox-jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
     firefox-jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
+
+    # For Edge Extension
+    edge: true
+    edge-product-id: ${{ secrets.EDGE_PRODUCT_ID }}
+    edge-client-id: ${{ secrets.EDGE_CLIENT_ID }}
+    edge-client-secret: ${{ secrets.EDGE_CLIENT_SECRET }}
+    edge-access-token-url: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
 ```
 
 ## Inputs
@@ -53,6 +60,16 @@ Only **pnpm** is supported.
 | `firefox-extension-id` | ✔        |         | Firefox Extension ID                  |
 | `firefox-jwt-issuer`   | ✔        |         | Firefox JWT Issuer                    |
 | `firefox-jwt-secret`   | ✔        |         | Firefox JWT Secret                    |
+
+### For Edge Extension
+
+| input                   | required | default | description                        |
+| ----------------------- | -------- | ------- | ---------------------------------- |
+| `edge`                  | ❌       | `false` | Flag whether to target Edge or not |
+| `edge-product-id`       | ✔       |         | Edge Product ID                    |
+| `edge-client-id`        | ✔       |         | Edge Client ID                     |
+| `edge-client-secret`    | ✔       |         | Edge Client Secret                 |
+| `edge-access-token-url` | ✔       |         | Edge Access Token URL              |
 
 ## Link
 
