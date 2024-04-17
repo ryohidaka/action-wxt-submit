@@ -1,6 +1,9 @@
 name: "WXT Submit"
 author: "ryohidaka <39184410+ryohidaka@users.noreply.github.com>"
 description: "A GitHub Action that submits new versions of an extension created with WXT for review."
+branding:
+  color: green
+  icon: send
 inputs:
   # Common Options
   dry-run:
