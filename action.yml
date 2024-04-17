@@ -1,0 +1,68 @@
+name: "WXT Submit"
+author: "ryohidaka <39184410+ryohidaka@users.noreply.github.com>"
+description: "A GitHub Action that submits new versions of an extension created with WXT for review."
+inputs:
+  dry-run:
+    description: "Dry Run Flag"
+    required: false
+    default: false
+  chrome-extension-id:
+    description: "Chrome Extension ID"
+    required: true
+  chrome-client-id:
+    description: "Chrome Client ID"
+    required: true
+  chrome-client-secret:
+    description: "Chrome Client Secret"
+    required: true
+  chrome-refresh-token:
+    description: "Chrome Refresh Token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check if Dryrun is enabled
+      run: |
+        if [ "${{ inputs.dry-run }}" == 'true' ]; then
+          echo "Dryrun mode is enabled"
+        else
+          echo "Dryrun mode is disabled"
+        fi
+      shell: bash
+
+    - name: Check required inputs
+      run: |
+        if [[ -z "${{ inputs.chrome-extension-id }}" || -z "${{ inputs.chrome-client-id }}" || -z "${{ inputs.chrome-client-secret }}" || -z "${{ inputs.chrome-refresh-token }}" ]]; then
+          echo "Error: All required inputs must be provided."
+          exit 1
+        fi
+      shell: bash
+
+    - uses: actions/checkout@v4
+
+    - uses: pnpm/action-setup@v3
+      with:
+        version: "latest"
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: latest
+        cache: "pnpm"
+
+    - name: Install dependencies
+      run: pnpm install
+      shell: bash
+
+    - name: Zip extensions
+      run: pnpm zip
+      shell: bash
+
+    - name: Submit to stores
+      run: pnpm wxt submit ${{ inputs.dry-run == 'true' && '--dry-run' || '' }} --chrome-zip .output/*-chrome.zip
+      shell: bash
+      env:
+        CHROME_EXTENSION_ID: ${{ inputs.chrome-extension-id }}
+        CHROME_CLIENT_ID: ${{ inputs.chrome-client-id }}
+        CHROME_CLIENT_SECRET: ${{ inputs.chrome-client-secret }}
+        CHROME_REFRESH_TOKEN: ${{ inputs.chrome-refresh-token }}
