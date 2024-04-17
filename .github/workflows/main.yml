@@ -1,0 +1,20 @@
+name: Test Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          dry-run: true
+
+          # For Chrome Extension
+          chrome: true
+          chrome-extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          chrome-client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          chrome-client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          chrome-refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
