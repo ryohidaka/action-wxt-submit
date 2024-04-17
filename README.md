@@ -14,21 +14,45 @@ Only **pnpm** is supported.
 - uses: ryohidaka/wxt-submit@v1
   with:
     dry-run: true
+
+    # For Chrome Extension
+    chrome: true
     chrome-extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
     chrome-client-id: ${{ secrets.CHROME_CLIENT_ID }}
     chrome-client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
     chrome-refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+    # For Firefox Addon
+    firefox: true
+    firefox-extension-id: ${{ secrets.FIREFOX_EXTENSION_ID }}
+    firefox-jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+    firefox-jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
 ```
 
 ## Inputs
 
-| input                  | required | default | description          |
-| ---------------------- | -------- | ------- | -------------------- |
-| `dry-run`              | ❌       | `false` | Dry Run Flag         |
-| `chrome-extension-id`  | ✔        |         | Chrome Extension ID  |
-| `chrome-client-id`     | ✔        |         | Chrome Client ID     |
-| `chrome-client-secret` | ✔        |         | Chrome Client Secret |
-| `chrome-refresh-token` | ✔        |         | Chrome Refresh Token |
+| input     | required | default | description  |
+| --------- | -------- | ------- | ------------ |
+| `dry-run` | ❌       | `false` | Dry Run Flag |
+
+### For Chrome Extension
+
+| input                  | required | default | description                          |
+| ---------------------- | -------- | ------- | ------------------------------------ |
+| `chrome`               | ❌       | `false` | Flag whether to target chrome or not |
+| `chrome-extension-id`  | ✔        |         | Chrome Extension ID                  |
+| `chrome-client-id`     | ✔        |         | Chrome Client ID                     |
+| `chrome-client-secret` | ✔        |         | Chrome Client Secret                 |
+| `chrome-refresh-token` | ✔        |         | Chrome Refresh Token                 |
+
+### For Firefox Addon
+
+| input                  | required | default | description                           |
+| ---------------------- | -------- | ------- | ------------------------------------- |
+| `firefox`              | ❌       | `false` | Flag whether to target firefox or not |
+| `firefox-extension-id` | ✔        |         | Firefox Extension ID                  |
+| `firefox-jwt-issuer`   | ✔        |         | Firefox JWT Issuer                    |
+| `firefox-jwt-secret`   | ✔        |         | Firefox JWT Secret                    |
 
 ## Link
 

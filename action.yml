@@ -2,23 +2,35 @@ name: "WXT Submit"
 author: "ryohidaka <39184410+ryohidaka@users.noreply.github.com>"
 description: "A GitHub Action that submits new versions of an extension created with WXT for review."
 inputs:
+  # Common Options
   dry-run:
     description: "Dry Run Flag"
     required: false
     default: false
+
+  # Inputs for Chrome Extension
+  chrome:
+    required: false
+    default: false
   chrome-extension-id:
     description: "Chrome Extension ID"
-    required: true
   chrome-client-id:
     description: "Chrome Client ID"
-    required: true
   chrome-client-secret:
     description: "Chrome Client Secret"
-    required: true
   chrome-refresh-token:
     description: "Chrome Refresh Token"
-    required: true
 
+  # Inputs for Firefox Addon
+  firefox:
+    required: false
+    default: false
+  firefox-extension-id:
+    description: "Firefox Extension ID"
+  firefox-jwt-issuer:
+    description: "Firefox JWT Issuer"
+  firefox-jwt-secret:
+    description: "Firefox JWT Secret"
 runs:
   using: "composite"
   steps:
@@ -31,12 +43,44 @@ runs:
         fi
       shell: bash
 
-    - name: Check required inputs
+    - name: Check required inputs for Chrome Extension
+      if: ${{ inputs.chrome == 'true' }}
       run: |
-        if [[ -z "${{ inputs.chrome-extension-id }}" || -z "${{ inputs.chrome-client-id }}" || -z "${{ inputs.chrome-client-secret }}" || -z "${{ inputs.chrome-refresh-token }}" ]]; then
-          echo "Error: All required inputs must be provided."
+        if [[ -z "${{ inputs.chrome-extension-id }}" ]]; then
+          echo "Error: Chrome Extension ID is required."
           exit 1
         fi
+        if [[ -z "${{ inputs.chrome-client-id }}" ]]; then
+          echo "Error: Chrome Client ID is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.chrome-client-secret }}" ]]; then
+          echo "Error: Chrome Client Secret is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.chrome-refresh-token }}" ]]; then
+          echo "Error: Chrome Refresh Token is required."
+          exit 1
+        fi
+        echo "All required inputs for Chrome Extension are provided."
+      shell: bash
+
+    - name: Check required inputs for Firfox Addon
+      if: ${{ inputs.firefox == 'true' }}
+      run: |
+        if [[ -z "${{ inputs.firefox-extension-id }}" ]]; then
+          echo "Error: Firefox Extension ID is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.firefox-jwt-issuer }}" ]]; then
+          echo "Error: Firefox JWT Issuer is required."
+          exit 1
+        fi
+        if [[ -z "${{ inputs.firefox-jwt-secret }}" ]]; then
+          echo "Error: Firefox JWT Secret is required."
+          exit 1
+        fi
+        echo "All required inputs for Chrome Extension are provided."
       shell: bash
 
     - uses: actions/checkout@v4
@@ -54,15 +98,29 @@ runs:
       run: pnpm install
       shell: bash
 
-    - name: Zip extensions
-      run: pnpm zip
-      shell: bash
-
-    - name: Submit to stores
-      run: pnpm wxt submit ${{ inputs.dry-run == 'true' && '--dry-run' || '' }} --chrome-zip .output/*-chrome.zip
+    - name: Submit to Chrome
+      if: ${{ inputs.chrome == 'true' }}
+      run: |
+        pnpm zip
+        pnpm wxt submit \
+          ${{ inputs.dry-run == 'true' && '--dry-run' || '' }} \
+          --chrome-zip .output/*-chrome.zip
       shell: bash
       env:
         CHROME_EXTENSION_ID: ${{ inputs.chrome-extension-id }}
         CHROME_CLIENT_ID: ${{ inputs.chrome-client-id }}
         CHROME_CLIENT_SECRET: ${{ inputs.chrome-client-secret }}
         CHROME_REFRESH_TOKEN: ${{ inputs.chrome-refresh-token }}
+
+    - name: Submit to Firefox
+      if: ${{ inputs.firefox == 'true' }}
+      run: |
+        pnpm zip:firefox
+        pnpm wxt submit \
+          ${{ inputs.dry-run == 'true' && '--dry-run' || '' }} \
+          --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip
+      shell: bash
+      env:
+        FIREFOX_EXTENSION_ID: ${{ inputs.firefox-extension-id }}
+        FIREFOX_JWT_ISSUER: ${{ inputs.firefox-jwt-issuer }}
+        FIREFOX_JWT_SECRET: ${{ inputs.firefox-jwt-secret }}

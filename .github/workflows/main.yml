@@ -18,3 +18,9 @@ jobs:
           chrome-client-id: ${{ secrets.CHROME_CLIENT_ID }}
           chrome-client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           chrome-refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+          # For Firefox Addon
+          firefox: false
+          firefox-extension-id: ${{ secrets.FIREFOX_EXTENSION_ID }}
+          firefox-jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          firefox-jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
