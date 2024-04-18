@@ -1,6 +1,9 @@
 # wxt-submit
 
+[![Test Action](https://github.com/ryohidaka/wxt-submit/actions/workflows/main.yml/badge.svg)](https://github.com/ryohidaka/wxt-submit/actions/workflows/main.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B6TVH92)
 
 A GitHub Action that submits new versions of an extension created with [WXT](https://wxt.dev/) for review.
 
@@ -66,10 +69,10 @@ Only **pnpm** is supported.
 | input                   | required | default | description                        |
 | ----------------------- | -------- | ------- | ---------------------------------- |
 | `edge`                  | ❌       | `false` | Flag whether to target Edge or not |
-| `edge-product-id`       | ✔       |         | Edge Product ID                    |
-| `edge-client-id`        | ✔       |         | Edge Client ID                     |
-| `edge-client-secret`    | ✔       |         | Edge Client Secret                 |
-| `edge-access-token-url` | ✔       |         | Edge Access Token URL              |
+| `edge-product-id`       | ✔        |         | Edge Product ID                    |
+| `edge-client-id`        | ✔        |         | Edge Client ID                     |
+| `edge-client-secret`    | ✔        |         | Edge Client Secret                 |
+| `edge-access-token-url` | ✔        |         | Edge Access Token URL              |
 
 ## Link
 
