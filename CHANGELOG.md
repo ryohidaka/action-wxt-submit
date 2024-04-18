@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://github.com/ryohidaka/wxt-submit/compare/v0.1.0...v1.0.0) (2024-04-18)
+
+
+### Miscellaneous Chores
+
+* release 1.0.0 ([835c48a](https://github.com/ryohidaka/wxt-submit/commit/835c48ad39cec53c34fb8912def46b0903127855))
+
 ## 0.1.0 (2024-04-18)
 
 
