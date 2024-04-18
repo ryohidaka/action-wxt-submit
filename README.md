@@ -1,5 +1,6 @@
 # wxt-submit
 
+[![release](https://badgen.net/github/release/ryohidaka/wxt-submit)](https://github.com/ryohidaka/wxt-submit/releases/)
 [![Test Action](https://github.com/ryohidaka/wxt-submit/actions/workflows/main.yml/badge.svg)](https://github.com/ryohidaka/wxt-submit/actions/workflows/main.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
