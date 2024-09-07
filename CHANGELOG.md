@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/ryohidaka/wxt-submit/compare/v1.0.0...v1.1.0) (2024-09-07)
+
+
+### Features
+
+* Add root-path option. ([33c188f](https://github.com/ryohidaka/wxt-submit/commit/33c188f7701bbb6ca32ba6c17e9b9e23177ebe2c))
+
 ## [1.0.0](https://github.com/ryohidaka/wxt-submit/compare/v0.1.0...v1.0.0) (2024-04-18)
 
 
