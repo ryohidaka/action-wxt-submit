@@ -18,6 +18,7 @@ Only **pnpm** is supported.
 - uses: ryohidaka/wxt-submit@v1
   with:
     dry-run: true
+    root-path: .
 
     # For Chrome Extension
     chrome: true
@@ -42,9 +43,10 @@ Only **pnpm** is supported.
 
 ## Inputs
 
-| input     | required | default | description  |
-| --------- | -------- | ------- | ------------ |
-| `dry-run` | ❌       | `false` | Dry Run Flag |
+| input       | required | default | description                      |
+| ----------- | -------- | ------- | -------------------------------- |
+| `dry-run`   | ❌       | `false` | Dry Run Flag                     |
+| `root-path` | ❌       | `.`     | The root path of the wxt project |
 
 ### For Chrome Extension
 
