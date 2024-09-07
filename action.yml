@@ -10,6 +10,10 @@ inputs:
     description: "Dry Run Flag"
     required: false
     default: false
+  root-path:
+    description: "The root path of the wxt project. Default is the current directory."
+    required: false
+    default: "."
 
   # Inputs for Chrome Extension
   chrome:
@@ -79,14 +83,15 @@ runs:
       with:
         node-version: latest
         cache: "pnpm"
+        cache-dependency-path: ${{ inputs.root-path }}
 
     - name: Install dependencies
-      run: scripts/install_dependencies.sh
+      run: scripts/install_dependencies.sh "${{ inputs.root-path }}"
       shell: bash
 
     - name: Submit to Chrome
       if: ${{ inputs.chrome == 'true' }}
-      run: scripts/submit_to_chrome.sh "${{ inputs.dry-run }}"
+      run: scripts/submit_to_chrome.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
       shell: bash
       env:
         CHROME_EXTENSION_ID: ${{ inputs.chrome-extension-id }}
@@ -96,7 +101,7 @@ runs:
 
     - name: Submit to Firefox
       if: ${{ inputs.firefox == 'true' }}
-      run: scripts/submit_to_firefox.sh "${{ inputs.dry-run }}"
+      run: scripts/submit_to_firefox.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
       shell: bash
       env:
         FIREFOX_EXTENSION_ID: ${{ inputs.firefox-extension-id }}
@@ -105,7 +110,7 @@ runs:
 
     - name: Submit to Edge
       if: ${{ inputs.edge == 'true' }}
-      run: scripts/submit_to_edge.sh "${{ inputs.dry-run }}"
+      run: scripts/submit_to_edge.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
       shell: bash
       env:
         EDGE_PRODUCT_ID: ${{ inputs.edge-product-id }}
