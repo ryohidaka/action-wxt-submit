@@ -14,6 +14,7 @@ jobs:
       - uses: ./
         with:
           dry-run: true
+          root-path: "./sample-project"
 
           # For Chrome Extension
           chrome: true
