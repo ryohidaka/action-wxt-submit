@@ -45,14 +45,14 @@ Only **pnpm** is supported.
 
 | input       | required | default | description                      |
 | ----------- | -------- | ------- | -------------------------------- |
-| `dry-run`   | ❌       | `false` | Dry Run Flag                     |
-| `root-path` | ❌       | `.`     | The root path of the wxt project |
+| `dry-run`   |          | `false` | Dry Run Flag                     |
+| `root-path` |          | `.`     | The root path of the wxt project |
 
 ### For Chrome Extension
 
 | input                  | required | default | description                          |
 | ---------------------- | -------- | ------- | ------------------------------------ |
-| `chrome`               | ❌       | `false` | Flag whether to target chrome or not |
+| `chrome`               |          | `false` | Flag whether to target chrome or not |
 | `chrome-extension-id`  | ✔        |         | Chrome Extension ID                  |
 | `chrome-client-id`     | ✔        |         | Chrome Client ID                     |
 | `chrome-client-secret` | ✔        |         | Chrome Client Secret                 |
@@ -62,7 +62,7 @@ Only **pnpm** is supported.
 
 | input                  | required | default | description                           |
 | ---------------------- | -------- | ------- | ------------------------------------- |
-| `firefox`              | ❌       | `false` | Flag whether to target firefox or not |
+| `firefox`              |          | `false` | Flag whether to target firefox or not |
 | `firefox-extension-id` | ✔        |         | Firefox Extension ID                  |
 | `firefox-jwt-issuer`   | ✔        |         | Firefox JWT Issuer                    |
 | `firefox-jwt-secret`   | ✔        |         | Firefox JWT Secret                    |
@@ -71,7 +71,7 @@ Only **pnpm** is supported.
 
 | input                   | required | default | description                        |
 | ----------------------- | -------- | ------- | ---------------------------------- |
-| `edge`                  | ❌       | `false` | Flag whether to target Edge or not |
+| `edge`                  |          | `false` | Flag whether to target Edge or not |
 | `edge-product-id`       | ✔        |         | Edge Product ID                    |
 | `edge-client-id`        | ✔        |         | Edge Client ID                     |
 | `edge-client-secret`    | ✔        |         | Edge Client Secret                 |
