@@ -54,26 +54,32 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v4
+
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
     - name: Check if Dryrun is enabled
-      run: scripts/check_dry_run.sh "${{ inputs.dry-run }}"
+      run: $GITHUB_ACTION_PATH/scripts/check_dry_run.sh "${{ inputs.dry-run }}"
       shell: bash
 
     - name: Check required inputs for Chrome Extension
       if: ${{ inputs.chrome == 'true' }}
-      run: scripts/check_chrome_inputs.sh "${{ inputs.chrome-extension-id }}" "${{ inputs.chrome-client-id }}" "${{ inputs.chrome-client-secret }}" "${{ inputs.chrome-refresh-token }}"
+      run: $GITHUB_ACTION_PATH/scripts/check_chrome_inputs.sh "${{ inputs.chrome-extension-id }}" "${{ inputs.chrome-client-id }}" "${{ inputs.chrome-client-secret }}" "${{ inputs.chrome-refresh-token }}"
       shell: bash
 
     - name: Check required inputs for Firefox Addon
       if: ${{ inputs.firefox == 'true' }}
-      run: scripts/check_firefox_inputs.sh "${{ inputs.firefox-extension-id }}" "${{ inputs.firefox-jwt-issuer }}" "${{ inputs.firefox-jwt-secret }}"
+      run: $GITHUB_ACTION_PATH/scripts/check_firefox_inputs.sh "${{ inputs.firefox-extension-id }}" "${{ inputs.firefox-jwt-issuer }}" "${{ inputs.firefox-jwt-secret }}"
       shell: bash
 
     - name: Check required inputs for Edge Extension
       if: ${{ inputs.edge == 'true' }}
-      run: scripts/check_edge_inputs.sh "${{ inputs.edge-product-id }}" "${{ inputs.edge-client-id }}" "${{ inputs.edge-client-secret }}" "${{ inputs.edge-access-token-url }}"
+      run: $GITHUB_ACTION_PATH/scripts/check_edge_inputs.sh "${{ inputs.edge-product-id }}" "${{ inputs.edge-client-id }}" "${{ inputs.edge-client-secret }}" "${{ inputs.edge-access-token-url }}"
       shell: bash
-
-    - uses: actions/checkout@v4
 
     - uses: pnpm/action-setup@v3
       with:
@@ -86,12 +92,12 @@ runs:
         cache-dependency-path: ${{ inputs.root-path }}
 
     - name: Install dependencies
-      run: scripts/install_dependencies.sh "${{ inputs.root-path }}"
+      run: $GITHUB_ACTION_PATH/scripts/install_dependencies.sh "${{ inputs.root-path }}"
       shell: bash
 
     - name: Submit to Chrome
       if: ${{ inputs.chrome == 'true' }}
-      run: scripts/submit_to_chrome.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
+      run: $GITHUB_ACTION_PATH/scripts/submit_to_chrome.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
       shell: bash
       env:
         CHROME_EXTENSION_ID: ${{ inputs.chrome-extension-id }}
@@ -101,7 +107,7 @@ runs:
 
     - name: Submit to Firefox
       if: ${{ inputs.firefox == 'true' }}
-      run: scripts/submit_to_firefox.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
+      run: $GITHUB_ACTION_PATH/scripts/submit_to_firefox.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
       shell: bash
       env:
         FIREFOX_EXTENSION_ID: ${{ inputs.firefox-extension-id }}
@@ -110,7 +116,7 @@ runs:
 
     - name: Submit to Edge
       if: ${{ inputs.edge == 'true' }}
-      run: scripts/submit_to_edge.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
+      run: $GITHUB_ACTION_PATH/scripts/submit_to_edge.sh "${{ inputs.root-path }}" "${{ inputs.dry-run }}"
       shell: bash
       env:
         EDGE_PRODUCT_ID: ${{ inputs.edge-product-id }}
