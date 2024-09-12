@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/ryohidaka/wxt-submit/compare/v1.1.0...v1.1.1) (2024-09-12)
+
+
+### Bug Fixes
+
+* Fixed a bug that the script directory could not be referenced. ([e47e8fc](https://github.com/ryohidaka/wxt-submit/commit/e47e8fcd5d9773b8d5d072e7401cfecaa7dbd98c))
+
 ## [1.1.0](https://github.com/ryohidaka/wxt-submit/compare/v1.0.0...v1.1.0) (2024-09-07)
 
 
