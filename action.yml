@@ -81,7 +81,7 @@ runs:
       run: $GITHUB_ACTION_PATH/scripts/check_edge_inputs.sh "${{ inputs.edge-product-id }}" "${{ inputs.edge-client-id }}" "${{ inputs.edge-client-secret }}" "${{ inputs.edge-access-token-url }}"
       shell: bash
 
-    - uses: pnpm/action-setup@v3
+    - uses: pnpm/action-setup@v4
       with:
         version: "latest"
 
