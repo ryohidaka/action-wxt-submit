@@ -12,6 +12,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "wxt": "^0.19.22"
+    "wxt": "^0.19.23"
   }
 }
