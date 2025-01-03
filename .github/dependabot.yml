@@ -9,6 +9,10 @@ updates:
     directory: "/sample-project" # Location of package manifests
     schedule:
       interval: "weekly"
+    assignees:
+      - ryohidaka
+    reviewers:
+      - ryohidaka
     groups:
       dependencies:
         patterns:
@@ -17,6 +21,10 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    assignees:
+      - ryohidaka
+    reviewers:
+      - ryohidaka
     groups:
       dependencies:
         patterns:
