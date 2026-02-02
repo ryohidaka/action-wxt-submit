@@ -8,13 +8,13 @@
 
 A GitHub Action that submits new versions of an extension created with [WXT](https://wxt.dev/) for review.
 
-## Notes
-
-Only **pnpm** is supported.
-
 ## Usage
 
 ```yml
+- uses: pnpm/action-setup@v4
+  with:
+    version: "latest"
+
 - uses: ryohidaka/wxt-submit@v1
   with:
     dry-run: true

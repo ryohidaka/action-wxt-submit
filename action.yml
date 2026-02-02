@@ -81,14 +81,9 @@ runs:
       run: $GITHUB_ACTION_PATH/scripts/check_edge_inputs.sh "${{ inputs.edge-product-id }}" "${{ inputs.edge-client-id }}" "${{ inputs.edge-client-secret }}" "${{ inputs.edge-access-token-url }}"
       shell: bash
 
-    - uses: pnpm/action-setup@v4
-      with:
-        version: "latest"
-
     - uses: actions/setup-node@v6
       with:
         node-version: latest
-        cache: "pnpm"
         cache-dependency-path: ${{ inputs.root-path }}
 
     - name: Install dependencies
