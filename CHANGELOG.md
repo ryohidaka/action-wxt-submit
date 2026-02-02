@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/ryohidaka/action-wxt-submit/compare/v1.1.1...v1.2.0) (2026-02-02)
+
+
+### Features
+
+* support multiple package managers ([6ca34d6](https://github.com/ryohidaka/action-wxt-submit/commit/6ca34d6f95a0ca9c6d5b79c2d1f5cf374ce59bd4))
+
 ## [1.1.1](https://github.com/ryohidaka/action-wxt-submit/compare/v1.1.0...v1.1.1) (2024-09-12)
 
 
